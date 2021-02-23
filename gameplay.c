@@ -1,5 +1,7 @@
 #include "gameplay.h"
 
+#define CHEESE ACS_DIAMOND
+
 
 bool border_limit(struct snake *head)
 {
@@ -36,8 +38,7 @@ void generate_cheese(struct food *cheese)
 	cheese->y = (rand() % (BORDER_HEIGHT - 1)) + BORDER_STARTY + 1; 
 	cheese->x = (rand() % (BORDER_WIDTH - 1)) + BORDER_STARTX + 1;
 
-	mvprintw(cheese->y, cheese->x, ".");
-
+	mvaddch(cheese->y, cheese->x, CHEESE);
 }
 
 void push_to_snake(struct snake **head, int y, int x, chtype body)
@@ -56,8 +57,6 @@ void push_to_snake(struct snake **head, int y, int x, chtype body)
 	new_snake->x = x;
 	new_snake->next = *head;
 	*head = new_snake;
-
-	//mvaddch(new_snake->y, new_snake->x, new_snake->body);
 }
 
 void pop_from_snake(struct snake **head)
@@ -67,7 +66,6 @@ void pop_from_snake(struct snake **head)
 	while (tail != NULL) {
 		if (tail->next == NULL) {
 			*head = tail->next;
-			//mvprintw(tail->y, tail->x, " ");
 			free(tail);
 			break;
 		}
@@ -83,7 +81,7 @@ void clear_window(struct food cheese)
 				mvprintw(i, j, " ");
 		}
 	}
-	mvprintw(cheese.y, cheese.x, ".");
+	mvaddch(cheese.y, cheese.x, CHEESE);
 }
 
 void print_window(struct snake *head, struct food cheese)

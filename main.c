@@ -15,7 +15,6 @@ int ch;
 bool horizontal = true;
 bool run = true;
 
-
 void init_game(void);
 int delay(int csec, bool horizontal);
 bool check_game(void);
@@ -25,11 +24,11 @@ void update_window(void);
 
 int main(void)
 {
-	init_game();
-
-	direction = right;
 	srand(time(0));
-	generate_cheese(&cheese);
+
+	init_game();
+	generate_cheese(&cheese, head);
+	direction = right;
 
 	while (true) {
 
@@ -49,6 +48,7 @@ int main(void)
 		change_direction();
 		update_window();
 	}
+
 	delay(100, horizontal);
 	endwin();
 
@@ -114,7 +114,7 @@ bool eat_cheese()
 	if (cheese.y == snakey && cheese.x == snakex) {
 		direction(&snakey, &snakex, &body);
 		push_to_snake(&head, snakey, snakex, body);
-		generate_cheese(&cheese);
+		generate_cheese(&cheese, head);
 		print_window(head, cheese);
 		return true;
 		}

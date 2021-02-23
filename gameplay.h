@@ -20,7 +20,8 @@ struct snake {
 
 bool border_limit(struct snake *head);
 bool autocannibalism(struct snake *head, int snakey, int snakex);
-void generate_cheese(struct food *cheese);
+void generate_cheese(struct food *cheese, struct snake *head);
+bool check_overlap(struct food *cheese, struct snake *head);
 void push_to_snake(struct snake **head, int y, int x, chtype body);
 void pop_from_snake(struct snake **head);
 void clear_window(struct food cheese);

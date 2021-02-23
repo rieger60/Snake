@@ -33,12 +33,30 @@ bool autocannibalism(struct snake *head, int snakey, int snakex)
 	return FALSE;
 }
 
-void generate_cheese(struct food *cheese)
+void generate_cheese(struct food *cheese, struct snake *head)
 {
-	cheese->y = (rand() % (BORDER_HEIGHT - 1)) + BORDER_STARTY + 1; 
-	cheese->x = (rand() % (BORDER_WIDTH - 1)) + BORDER_STARTX + 1;
+	while (true) {
+		cheese->y = (rand() % (BORDER_HEIGHT - 1)) + BORDER_STARTY + 1; 
+		cheese->x = (rand() % (BORDER_WIDTH - 1)) + BORDER_STARTX + 1;
 
-	mvaddch(cheese->y, cheese->x, CHEESE);
+		if (check_overlap(cheese, head)) {
+			continue;
+		} else {
+			mvaddch(cheese->y, cheese->x, CHEESE);
+			break;
+		}
+	}
+}
+
+bool check_overlap(struct food *cheese, struct snake *head)
+{
+	while (head != NULL) {
+		if (cheese->y == head->y && cheese->x == head->x) {
+			return true;
+		}
+		head = head->next;
+	}
+	return false;
 }
 
 void push_to_snake(struct snake **head, int y, int x, chtype body)

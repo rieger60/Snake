@@ -1,11 +1,8 @@
 #define _DEFAULT_SOURCE
 
 #include "layout.h"
-#include "snake.h"
 #include "controls.h"
 #include "gameplay.h"
-#include "window.h"
-#include <stdlib.h>
 #include <unistd.h>
 
 //https://www.dosgamesarchive.com/play/nibbles/
